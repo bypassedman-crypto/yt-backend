@@ -1,7 +1,10 @@
 FROM python:3.10-slim
 
-# Telepítjük az ffmpeg-et ÉS a nodejs-t (ami kötelező a yt-dlp-nek a webes kliens kihívásaihoz)
-RUN apt-get update && apt-get install -y ffmpeg nodejs && rm -rf /var/lib/apt/lists/*
+# Telepítjük az ffmpeg-et, a nodejs-t és létrehozzuk a yt-dlp által elvárt 'node' szimbolikus linket
+RUN apt-get update && \
+    apt-get install -y ffmpeg nodejs && \
+    ln -s /usr/bin/nodejs /usr/bin/node && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
