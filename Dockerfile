@@ -1,10 +1,7 @@
-FROM python:3.10-slim
+FROM nikolaik/python-nodejs:python3.10-nodejs20
 
-# Telepítjük az ffmpeg-et, a nodejs-t és létrehozzuk a yt-dlp által elvárt 'node' szimbolikus linket
-RUN apt-get update && \
-    apt-get install -y ffmpeg nodejs && \
-    ln -s /usr/bin/nodejs /usr/bin/node && \
-    rm -rf /var/lib/apt/lists/*
+# Telepítjük az ffmpeg-et a hangkonverzióhoz
+RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
