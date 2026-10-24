@@ -33,6 +33,7 @@ def download_youtube_audio():
         }],
         'outtmpl': f'{DOWNLOAD_FOLDER}/%(title)s.%(ext)s',
         'quiet': True,
+        'cookiefile': 'cookies.txt',  # <--- Itt olvassa be a sütiket a szerver!
         'extractor_args': {
             'youtube': {
                 'player_client': ['ios', 'tv', 'web']
