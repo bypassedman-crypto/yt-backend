@@ -33,11 +33,7 @@ def download_youtube_audio():
         }],
         'outtmpl': f'{DOWNLOAD_FOLDER}/%(title)s.%(ext)s',
         'quiet': True,
-        'extractor_args': {
-            'youtube': {
-                'player_client': ['android']
-            }
-        }
+        'cookiefile': 'cookies.txt',  # Itt olvassa be a sütiket
     }
 
     try:
