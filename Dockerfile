@@ -1,16 +1,12 @@
-FROM python:3.10-slim
+FROM python:3.12-slim
 
-# FFmpeg telepítése a rendszerre az MP3 konverzióhoz
-RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y ffmpeg curl unzip && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -U -r requirements.txt
 
 COPY . .
 
-EXPOSE 5000
-
-# Gunicorn használata a Flask futtatásához
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "main:app", "--timeout", "120"]
+CMD gunicorn main:app --bind 0.0.0.0:${PORT:-10000} --timeout 300 --workers 1
